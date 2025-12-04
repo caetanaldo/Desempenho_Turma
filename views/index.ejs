@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Desempenho da Turma - Layout Live</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    
+    <%- include('partials/header') %>
+      
+    <main class="container">
+
+        <h2>Desempenho dos Alunos</h2>
+        <% 
+            //Calcular média e status
+
+            alunos.forEach(a =>{
+                a.media = ((a.nota1 + a.nota2) / 2).toFixed(1);
+                if(a.media >= 7) a.status = 'aprovado';
+                else if(a.media >= 5) a.status = 'recuperacao';
+                else a.status = 'reprovado';
+            })
+
+            //ORDENAR PARA O RANKING
+            
+            const ranking = [...alunos].sort((a, b) => b.media - a.media);
+            const mediaGeral = (alunos.reduce((acc, a)=> acc + parseFloat(a.media), 0) / alunos.length).toFixed(1)
+        %>
+        
+        <section class="alunos-lista">
+            <div class="alunos-header">
+                <div class="alunos-item-campo">Aluno</div>
+                <div class="alunos-item-campo nota">Nota 1</div>
+                <div class="alunos-item-campo nota">Nota 1</div>
+                <div class="alunos-item-campo media">Média</div>
+                <div class="alunos-item-campo status">Status</div>
+            </div>
+
+            <ul class="alunos-container">
+                <% alunos.forEach(a => {%> 
+                    
+                    <li class="alunos-card <%= a.status %>">
+                        <div class="alunos-dado nome" data-label="Aluno""><%= a.nome %></div>
+                        <div class="alunos-dado nota" data-label="Nota 1"><%= a.nota1 %></div>
+                        <div class="alunos-dado nota" data-label="Nota 2"><%= a.nota2 %></div>
+                        <div class="alunos-dado nota" data-label="Média"><%= a.media %></div>
+                        <div class="alunos-dado nota" data-label="Status"><%= a.status.charAt(0).toUpperCase() + a.status.slice(1) %></div>
+                    </li>    
+                
+                <%}) %>
+            </ul>
+        </section>
+
+        <div class="estatisticas">
+            <p>Média geral da turma <%= mediaGeral %></p>
+        </div>
+
+        <div class="ranking">
+            <h2>Ranking dos melhores alunos</h2>
+            <ul>
+
+                <% ranking.slice(0,3).forEach((a, i)=> {%>  
+                    
+                    <li>
+                        <span class="posicao"> <%= i + 1 %>º </span>
+                        <%= a.nome %> - Média: <%= a.media %>
+                    </li>    
+                <% }) %>
+            </ul>
+        </div>
+
+        <%
+            const numeroSorteado = Math.floor(Math.random() * alunos.length);
+            const destaque = alunos[numeroSorteado].nome
+        %>
+
+        <div class="curiosidade">
+            Curiosidade: O aluno sorteado para destaque de hoje é: <%= destaque %>
+        </div>
+
+    </main>
+    <%- include('partials/footer') %>
+
+</body>
+</html>

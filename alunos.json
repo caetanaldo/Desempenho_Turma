@@ -1,0 +1,8 @@
+[
+    { "nome": "Ana Souza", "nota1": 8.5, "nota2": 7.0, "trabalho": 9 },
+    { "nome": "Carlos Lima", "nota1": 5.5, "nota2": 6.0, "trabalho": 4 },
+    { "nome": "Beatriz Alves", "nota1": 9.0, "nota2": 8.5, "trabalho": 10 },
+    { "nome": "Diego Martins", "nota1": 4.0, "nota2": 5.0, "trabalho": 5 },
+    { "nome": "Julia Mendes", "nota1": 7.0, "nota2": 7.5, "trabalho": 8 },
+    { "nome": "Lucas Pereira", "nota1": 6.0, "nota2": 5.5, "trabalho": 6 }
+]
